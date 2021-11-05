@@ -5,7 +5,7 @@ from instance.config import SECRET_KEY
 class Config:
     '''General configuration class'''
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    SQLALCHEMY_TRACK_MODIFICATIONS=True
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
     SECRET_KEY = os.environ.get('SECRET KEY')
     UPLOADED_PHOTOS_DEST = 'app/static/photos' #we will store our photos in the static file since it is not advisable to that in the db
 
@@ -16,6 +16,14 @@ class Config:
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+
+    #simple mde configurations
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
+
+    @staticmethod
+    def init_app(app):
+        pass
 
 class ProdConfig(Config):
     '''
