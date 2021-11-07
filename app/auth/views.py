@@ -14,11 +14,11 @@ def login():
         user = User.query.filter_by(email = login_form.email.data).first()
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
-            return redirect(request.args.get('next') or url_for('main.index'))
+            return redirect(request.args.get('next') or url_for('main.profile_page'))
 
         flash('Invalid username or Password')
 
-    title = "mathwiti login"
+    title = "Mathwiti | login"
     return render_template('auth/login.html',login_form = login_form,title=title)
 
 @auth.route('/register',methods = ["GET","POST"])
@@ -29,7 +29,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to Mathwiti","email/welcome_user",user.email,user=user)
 
         return redirect(url_for('auth.login'))
     title = "Register An Account"
@@ -39,7 +39,7 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("main.index"))
+    return redirect(url_for("main.profile_page"))
 
 
 

@@ -15,3 +15,54 @@ def main_page():
 def landing_page():
     title = 'Mathwiti | Login'
     return render_template('index.html', title = title)
+
+@main.route('/profile')
+def profile_page():
+    title = 'Mathwiti | Profile'
+    return render_template('profile/profile.html', title = title)
+
+@main.route('/job')
+def job_page():
+    title = 'Mathwiti | Job'
+    pitch = Pitch.query.filter_by(category_of_the_pitch = 'Job').all()
+    return render_template('job_page.html', title = title, pitch=pitch)
+
+@main.route('/pitch/new', methods = ['GET','POST'])
+@login_required
+def new_pitch():
+    title = 'Mathwiti | Create Pitch'
+    job_new = PitchForm()
+    if job_new.validate_on_submit():
+        kichwa = job_new.title.data
+        post = job_new.post.data
+        category = job_new.category.data
+        owner_id = current_user
+        new_job = Pitch(user_id=current_user._get_current_object().id,pitch=post,category_of_the_pitch=category)
+        db.session.add(new_job)
+        db.session.commit()
+        return redirect(url_for('main.profile_page'))
+    return render_template('newPitch.html', title = title,job_new=job_new)
+
+@main.route('/advert')
+def advert():
+    title = "Mathwiti | Advertisements"
+    pitch = Pitch.query.filter_by(category_of_the_pitch = 'Advertisement').all()
+    return render_template("advertisment.html", title= title, pitch=pitch)
+
+@main.route('/comment/new/<int:pitch_id>', methods = ['GET','POST'])
+@login_required
+def new_comment(pitch_id):
+  form = CommentForm()
+  pitch=Pitch.query.get(pitch_id)
+  if form.validate_on_submit():
+    description = form.description.data
+
+    new_comment = Comment( description = description, user_id = current_user._get_current_object().id, pitch_id = pitch_id)
+    db.session.add(new_comment)
+    db.session.commit()
+
+
+    return redirect(url_for('.new_comment', pitch_id= pitch_id))
+
+  all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
+  return render_template('comment.html', form = form, comment = all_comments, pitch = pitch )

@@ -1,4 +1,8 @@
-{% extends 'base.html'%}
+{% if current_user.is_authenticated %}
+  {% extends 'base.html'%}
+{% else %}
+  {% extends 'auth/auth-base.html' %}
+{% endif %}
 {% import 'bootstrap/wtf.html' as wtf%}
 
 {% block content %}

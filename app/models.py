@@ -24,9 +24,9 @@ class User(UserMixin,db.Model):
     #nullable = False tells SQLAlchemy to create the column as NOT NULL
 
     id = db.Column(db.Integer,primary_key = True)
-    username = db.Column(db.String(32),unique=True,nullable = False)
-    email = db.Column(db.String(50),unique=True,nullable = False)
-    pass_secure = db.Column(db.String(32),nullable = False)
+    username = db.Column(db.String(255),unique=True,nullable = False)
+    email = db.Column(db.String(255),unique=True,nullable = False)
+    pass_secure = db.Column(db.String(255),nullable = False)
     profile_pic_path = db.Column(db.String())
     bio = db.Column(db.String(255))
 
@@ -72,7 +72,10 @@ class Pitch(db.Model):
     pitch = db.Column(db.Text(), nullable = False)
     time_posted = db.Column(db.DateTime, default = datetime.utcnow)
     category_of_the_pitch = db.Column(db.String(150), index = True, nullable = False)
-    
+    comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
+    upvote = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
+    downvote = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
+
 
 
     @classmethod
