@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>{{user.username| capitalize}}'s Profile</h2>
+      {% if user.profile_pic_path %}
+      <img
+        src="{{url_for('static',filename=user.profile_pic_path)}}"
+        alt=""
+        style="width: 200px; height: 200px; border-radius: 100px"
+      /><br /><br />> {% else %}
+      <span>
+        <b>
+          You don't have a profile picture {{user.profile_pic_path}}
+        </b></span>
+      
+      {% endif %}
+      <!-- Displaying user bio -->
+      {% if user.bio %}
+      <p>{{user.bio}}</p>
+      {% else %}
+      <span><b>You do not have a bio</b></span>
+      {% if user == current_user %}
+      <a href="{{url_for('main.update_profile',uname = user.username)}}"
+        >Edit your bio</a
+      >
+      {% endif %} {% endif %}
+      <p><b>Update your Profile Photo</b></p>
+      {% if user == current_user %}
+      <form
+        action="{{url_for('main.update_picha',uname = user.username)}}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="pichaYako" class="form-control" required />
+        <input type="submit" />
+      </form>
+      {% endif %}
+    </div>
+    <div class="col posts">
+      {% if user == current_user %}
+      <h2 class="text-center">Your Posts</h2>
+      <div
+        class="card-flex"
+        style="
+          display: flex;
+          align-items: center;
+          align-content: center;
+          justify-content: center;
+        "
+      >
+        <div
+          class="card mt-5 shadow bg-white rounded"
+          style="height: 20rem; width: 30rem"
+        >
+          <div class="mx-auto card-body">
+            <h3 class="text-center mt-3">{{user.username}}'s activities</h3>
+            <p class="text-center">Added Posts: {{user.post.count()}}</p>
+            <hr />
+            <p class="text-center">Added Comments: {{user.comment.count()}}</p>
+            <hr />
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

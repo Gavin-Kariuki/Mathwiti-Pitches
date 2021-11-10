@@ -1,2 +1,2 @@
-DATABASE_URL = 'postgresql+psycopg2://esa:moringa@localhost/mathwiti_pitches'
+DATABASE_URL = 'postgresql+psycopg2://postgres:moringa@localhost/mathwiti_pitches'
 SECRET_KEY = 'choomba'

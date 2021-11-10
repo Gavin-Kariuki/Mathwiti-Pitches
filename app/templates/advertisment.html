@@ -2,13 +2,22 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="container">
-    <div class="card">
-        {% for x in pitch %}
-        <div class="card-title">{{x.pitch}}</div>
-        <span>Posted at: {{x.time_posted}}</span>
-        {% endfor %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-5">
+            <div class="card">
+                {% for x in pitch %}
+                <div class="card-title">{{x.pitch}}</div>
+                <span>Posted at: {{x.time_posted}}</span>
+                <button>
+                    <a href="{{url_for('main.new_comment', pitch_id = x.id)}}">Comment</a>
+                </button>
+                {% endfor %}
+            </div>
+
+        </div>
     </div>
+    
     
 </div>
 

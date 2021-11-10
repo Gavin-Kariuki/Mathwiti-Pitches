@@ -1,26 +1,19 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
-{% block content %}
-<div class="row">
-    <div class="card">
-      <div class="card-body text-center">
-        <h4><a>{{pitch.title}}</a></h4>
-        <h5 class="card-text text-center">{{pitch.description}}.</h5>
-      </div>
-    </div>
-  <div class="container">
-    <div class="row">
-      <div class="jumbotron bg-light">
-        {{wtf.quick_form(form)}}
-      </div>
-    </div>
-  </div>                  
-  <hr>
-  <div class="container">
-    <h2 style=" text-align: center; font-weight: bold; margin-bottom: 40px;">Comments</h2>
-    <div class="col-md-6">
 
-    </div>         
-  </div>      
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-md-2"> </div>
+<div class="col-md-8">
+
+    {{wtf.quick_form(comment_form)}}
+
 </div>
+<div class="col-md-2">
+  <a href="/profile">Go back</a>
+</div>
+</div>
+</div>
+
 {% endblock%}

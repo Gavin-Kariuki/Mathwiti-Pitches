@@ -14,4 +14,4 @@ class PitchForm(FlaskForm):
 
 class CommentForm(FlaskForm):
     comment = TextAreaField('Care to leave a comment here?',validators=[Required()])
-    submit = SubmitField('Post Comment')
+    submit = SubmitField('Post')

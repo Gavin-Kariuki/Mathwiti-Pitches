@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{title}}</title>
+    {% block scripts %}
+    <script>
+      window.onload=function(){localStorage.setItem("prev_page", location.href)}
+      function go_back(){window.location.href = localStorage.getItem("prev_page")};
+    </script>
+    {% endblock %}
     {% block styles %}
 
     <!-- Bootstrap CDN -->
